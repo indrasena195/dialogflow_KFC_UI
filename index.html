@@ -470,6 +470,18 @@ async function sendMessage() {
         menuContainer.style.display = "none";
     }
 
+    if (
+      agent === "agent4" &&
+      data.response.flow === "Order Complete Flow"
+    ) {
+      console.log("Order completed → resetting session");
+      sessionStorage.removeItem("SESSION_ID");
+      menuContainer.innerHTML = "";
+      setTimeout(() => {
+        location.reload();
+      }, 500);
+    }
+
   } catch (err) {
     chatBox.innerHTML += `<div class="bot-msg" style="color:red">Error connecting to server.</div>`;
   }
