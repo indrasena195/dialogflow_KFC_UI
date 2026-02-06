@@ -240,13 +240,11 @@
 
 <script>
 
-let SESSION_ID = sessionStorage.getItem("SESSION_ID");
+sessionStorage.removeItem("SESSION_ID");
+let SESSION_ID = crypto.randomUUID();
+sessionStorage.setItem("SESSION_ID", SESSION_ID);
 
-if (!SESSION_ID) {
-  SESSION_ID = crypto.randomUUID();
-  sessionStorage.setItem("SESSION_ID", SESSION_ID);
-}
-console.log("Session ID:", SESSION_ID);
+console.log("session started:", SESSION_ID);
 
 const FLOW_TO_MENU = {
   "Menu Flow": "MENU",
@@ -472,7 +470,7 @@ async function sendMessage() {
 
     if (
       agent === "agent4" &&
-      data.response.flow === "Order Complete Flow"
+      data.response.flow === "Default Start Flow"
     ) {
       console.log("Order completed → resetting session");
       sessionStorage.removeItem("SESSION_ID");
